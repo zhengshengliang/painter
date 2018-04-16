@@ -1,5 +1,6 @@
 let canvas = '';
 let context = '';
+let isPaint = false;
 
 class Painter {
     constructor() {
@@ -12,6 +13,9 @@ class Painter {
         const pageHeight = document.documentElement.clientHeight;
         canvas.width = pageWidth;
         canvas.height = pageHeight;
+
+        context.fillStyle = 'red';
+        context.fillRect(0, 0, 100, 100); // 注意这个要写在style前面，否则style那个不会生效
 
         this.listenMouseEvent();
     }
@@ -28,12 +32,30 @@ class Painter {
 
     listenMouseEvent() {
         canvas.onmousedown = (e) => {
+            isPaint = true;
             const x = e.clientX;
             const y = e.clientY;
-            this.drawLine(x, y);
+            const div = document.createElement('div');
+            div.style = 'position: absolute; left:' + (x - 3) + 'px; top:' + (y - 3) + 'px;' +
+                'width: 6px; height: 6px; background: black; border-radius: 3px';
+            canvas.appendChild(div);
         }
 
         canvas.onmousemove = (e) => {
+            if (isPaint) {
+                const x = e.clientX;
+                const y = e.clientY;
+
+                const div = document.createElement('div');
+                div.style = 'position: absolute; left:' + (x - 3) + 'px; top:' + (y - 3) + 'px;' +
+                    'width: 6px; height: 6px; background: black; border-radius: 3px';
+                canvas.appendChild(div);
+            }
+
+        }
+
+        canvas.onmouseup = (e) => {
+            isPaint = false;
             const x = e.clientX;
             const y = e.clientY;
         }

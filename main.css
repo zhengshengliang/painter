@@ -8,6 +8,8 @@ a {
 }
 
 #canvas {
+    /*height: 100vh;*/
     background: green;
     display: block;
+    position: relative;
 }
