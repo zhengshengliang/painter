@@ -32,9 +32,28 @@ class Painter {
         // context.fill(); // 全填充
 
         this.resize();
-        this.listenMouseEvent();
+        this.listenUesr();
+
+        eraser.onclick = () => {
+            isEraser = true;
+            isPaint = false
+        }
+
+        pen.onclick = () => {
+            isEraser = false;
+            isPaint = true
+        }
 
         // this.drawLine(0, 0, 100, 100);
+    }
+
+    listenUesr() {
+        if ('ontouchstart' in document.body) {
+            // 说明是触屏设备
+            this.listenTouchEvent();
+        } else  {
+            this.listenMouseEvent();
+        }
     }
 
     resize() {
@@ -116,15 +135,32 @@ class Painter {
         window.onresize = () => {
             this.resize();
         }
+    }
 
-        eraser.onclick = () => {
-            isEraser = true;
-            isPaint = false
+    listenTouchEvent() {
+        canvas.ontouchstart = (e) => {
+            const x = e.touches[0].clientX; // 这个相对于viewport的位置
+            const y = e.touches[0].clientY;
+
+            isUsing = true;
         }
 
-        pen.onclick = () => {
-            isEraser = false;
-            isPaint = true
+        canvas.ontouchmove = (e) => {
+            const x = e.touches[0].clientX;
+            const y = e.touches[0].clientY;
+            if (isUsing) {
+                if (isPaint) {
+                    this.drawLine(lastPoint.x, lastPoint.y, x, y);
+                    lastPoint = {x, y};
+                } else if (isEraser){
+                    context.clearRect(x -5, y - 5, 10, 10);
+                }
+            }
+        }
+
+        canvas.ontouchend = (e) => {
+            isUsing = false;
+            lastPoint = {x: undefined, y: undefined};
         }
     }
 
