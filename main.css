@@ -13,3 +13,13 @@ a {
     display: block;
     position: relative;
 }
+
+#main {
+    position: relative;
+}
+
+#eraser {
+    position: fixed;
+    left: 0;
+    bottom: 0px
+}

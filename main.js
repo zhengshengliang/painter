@@ -1,7 +1,9 @@
 let canvas = '';
 let context = '';
 let isPaint = false;
+let isEraser = false;
 let lastPoint = {};
+
 
 class Painter {
     constructor() {
@@ -10,11 +12,6 @@ class Painter {
     }
 
     init() {
-        const pageWidth = document.documentElement.clientWidth;
-        const pageHeight = document.documentElement.clientHeight;
-        canvas.width = pageWidth;
-        canvas.height = pageHeight;
-
         // context.strokeStyle = 'yellow';
         // context.strokeRect(10, 10, 100, 100); // 描边
         //
@@ -33,10 +30,17 @@ class Painter {
         // context.stroke(); // 描边
         // context.fill(); // 全填充
 
-
+        this.resize();
         this.listenMouseEvent();
 
         // this.drawLine(0, 0, 100, 100);
+    }
+
+    resize() {
+        const pageWidth = document.documentElement.clientWidth;
+        const pageHeight = document.documentElement.clientHeight;
+        canvas.width = pageWidth;
+        canvas.height = pageHeight;
     }
 
     drawCircle(x, y, r) {
@@ -57,31 +61,35 @@ class Painter {
 
     listenMouseEvent() {
         canvas.onmousedown = (e) => {
-            isPaint = true;
             const x = e.clientX; // 这个相对于viewport的位置
             const y = e.clientY;
+            if (isEraser && !isPaint) {
+
+            } else if (isPaint && !isEraser) {
+                debugger;
+                this.drawLine(x, y, 1);
+            }
+
             // const div = document.createElement('div');
             // div.style = 'position: absolute; left:' + (x - 3) + 'px; top:' + (y - 3) + 'px;' +
             //     'width: 6px; height: 6px; background: black; border-radius: 3px';
             // canvas.appendChild(div);
-            this.drawCircle(x, y, 1);
+            // this.drawCircle(x, y, 1);
         }
 
         canvas.onmousemove = (e) => {
             const x = e.clientX;
             const y = e.clientY;
             if (isPaint) {
-                this.drawCircle(x, y, 1);
-
                 this.drawLine(lastPoint.x, lastPoint.y, x, y)
-                // const div = document.createElement('div');
-                // div.style = 'position: absolute; left:' + (x - 3) + 'px; top:' + (y - 3) + 'px;' +
-                //     'width: 6px; height: 6px; background: black; border-radius: 3px';
-                // canvas.appendChild(div);
             }
 
             lastPoint = {x, y};
 
+            // const div = document.createElement('div');
+            // div.style = 'position: absolute; left:' + (x - 3) + 'px; top:' + (y - 3) + 'px;' +
+            //     'width: 6px; height: 6px; background: black; border-radius: 3px';
+            // canvas.appendChild(div);
         }
 
         canvas.onmouseup = (e) => {
@@ -89,7 +97,22 @@ class Painter {
             const x = e.clientX;
             const y = e.clientY;
         }
+
+        window.onresize = () => {
+            this.resize();
+        }
+
+        eraser.onclick = () => {
+            isEraser = true;
+            isPaint = false
+        }
+
+        pen.onclick = () => {
+            isEraser = false;
+            isPaint = true
+        }
     }
+
 }
 
 const painter = new Painter();
