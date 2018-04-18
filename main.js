@@ -6,6 +6,10 @@ let isUsing = false;
 let lastPoint = {};
 
 
+function switchColor(e) {
+    console.log(e)
+}
+
 class Painter {
     constructor() {
         canvas = document.getElementById('canvas');
@@ -36,12 +40,41 @@ class Painter {
 
         eraser.onclick = () => {
             isEraser = true;
-            isPaint = false
+            isPaint = false;
+
+            eraser.classList.add('active');
+            pen.classList.remove('active');
         }
 
         pen.onclick = () => {
             isEraser = false;
-            isPaint = true
+            isPaint = true;
+
+            pen.classList.add('active');
+            eraser.classList.remove('active');
+        }
+
+        red.onclick = () => {
+            context.strokeStyle = 'red';
+            red.classList.add('active');
+            green.classList.remove('active');
+            blue.classList.remove('active');
+        }
+
+        green.onclick = () => {
+            context.strokeStyle = 'green';
+
+            red.classList.remove('active');
+            green.classList.add('active');
+            blue.classList.remove('active');
+        }
+
+        blue.onclick = () => {
+            context.strokeStyle = 'blue';
+
+            red.classList.remove('active');
+            green.classList.remove('active');
+            blue.classList.add('active');
         }
 
         // this.drawLine(0, 0, 100, 100);
@@ -71,7 +104,7 @@ class Painter {
 
     drawLine(x1, y1, x2, y2) {
         context.beginPath();
-        context.strokeStyle = 'black';
+        // context.strokeStyle = 'black';
         context.moveTo(x1, y1); // 起点
         context.lineWidth = 5; // 线的宽度
         context.lineTo(x2, y2); // 终点
@@ -153,7 +186,7 @@ class Painter {
                     this.drawLine(lastPoint.x, lastPoint.y, x, y);
                     lastPoint = {x, y};
                 } else if (isEraser){
-                    context.clearRect(x -5, y - 5, 10, 10);
+                    context.clearRect(x -5, y - 5, 150, 150);
                 }
             }
         }

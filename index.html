@@ -4,14 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>画板</title>
+    <script src="//at.alicdn.com/t/font_634481_7778mfxgh1ev1jor.js"></script>
     <link rel="stylesheet" href="main.css">
+    <style type="text/css">
+      .icon {
+          width: 1em; height: 1em;
+          vertical-align: -0.15em;
+          fill: currentColor;
+          overflow: hidden;
+      }
+    </style>
 </head>
 <body>
     <div id="main">
-
         <canvas id="canvas"></canvas>
-        <button id="eraser" class="eraser">橡皮擦</button>
-        <button id="pen" class="eraser">画笔</button>
+        <div class="actions">
+            <svg id="pen" class="icon active" aria-hidden="true">
+                <use xlink:href="#icon-pen"></use>
+            </svg>
+            <svg id="eraser" class="icon" aria-hidden="true">
+                <use xlink:href="#icon-ico-erasertool-May"></use>
+            </svg>
+        </div>
+
+        <ol class="colors" onclick="switchColor">
+            <li id="red" class="red active"></li>
+            <li id="green" class="green"></li>
+            <li id="blue" class="blue"></li>
+        </ol>
+
+        <!--<button id="eraser" class="eraser">橡皮擦</button>-->
+        <!--<button id="pen" class="eraser">画笔</button>-->
         <script src="main.js"></script>
     </div>
 </body>

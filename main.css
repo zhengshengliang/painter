@@ -7,9 +7,15 @@ a {
     text-decoration: none;
 }
 
+ul, ol {
+    list-style: none;
+}
+
+
+
 #canvas {
     /*height: 100vh;*/
-    background: green;
+    /*background: green;*/
     display: block;
     position: relative;
 }
@@ -18,14 +24,65 @@ a {
     position: relative;
 }
 
-#eraser {
+.actions {
     position: fixed;
+    top: 0;
     left: 0;
-    bottom: 0px
+    padding: 20px;
+}
+
+.actions svg {
+    width: 1.5em;
+    height: 1.5em;
+    transition: all 0.3s;
+}
+
+.actions svg.active {
+    fill: red;
+    transform: scale(1.5);
+}
+
+#eraser {
+    /*position: fixed;*/
+    /*left: 0;*/
+    /*bottom: 0px*/
 }
 
 #pen {
+    /*position: fixed;*/
+    /*left: 50px;*/
+    /*bottom: 0px*/
+}
+
+.colors {
     position: fixed;
-    left: 50px;
-    bottom: 0px
+    top: 60px;
+    left: 10px;
+    /*border: 1px solid red;*/
+}
+
+.colors > li {
+    width: 20px;
+    height: 20px;
+    /*border: 1px solid red;*/
+    border-radius: 50%;
+    margin: 10px 0;
+    transition: all .3s;
+}
+
+.colors > li.active {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    transform: scale(1.2);
+}
+
+.colors > li.red {
+    background-color: red;
+}
+
+.colors > li.green {
+    background-color: green;
+}
+
+.colors > li.blue {
+    background-color: blue;
 }
