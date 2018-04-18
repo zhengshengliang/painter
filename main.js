@@ -1,7 +1,8 @@
 let canvas = '';
 let context = '';
-let isPaint = false;
+let isPaint = true;
 let isEraser = false;
+let isUsing = false;
 let lastPoint = {};
 
 
@@ -63,12 +64,21 @@ class Painter {
         canvas.onmousedown = (e) => {
             const x = e.clientX; // 这个相对于viewport的位置
             const y = e.clientY;
-            if (isEraser && !isPaint) {
 
-            } else if (isPaint && !isEraser) {
-                debugger;
-                this.drawLine(x, y, 1);
-            }
+            isUsing = true;
+
+            // if (isEraser) {
+            //     isPaint = false;
+            // } else {
+            //     isPaint = true;
+            // }
+
+            // if (isEraser && !isPaint) {
+            //
+            // } else if (isPaint && !isEraser) {
+            //     debugger;
+            //     this.drawLine(x, y, 1);
+            // }
 
             // const div = document.createElement('div');
             // div.style = 'position: absolute; left:' + (x - 3) + 'px; top:' + (y - 3) + 'px;' +
@@ -80,8 +90,12 @@ class Painter {
         canvas.onmousemove = (e) => {
             const x = e.clientX;
             const y = e.clientY;
-            if (isPaint) {
-                this.drawLine(lastPoint.x, lastPoint.y, x, y)
+            if (isUsing) {
+                if (isPaint) {
+                    this.drawLine(lastPoint.x, lastPoint.y, x, y)
+                } else if (isEraser){
+                    context.clearRect(x -5, y - 5, 10, 10);
+                }
             }
 
             lastPoint = {x, y};
@@ -93,9 +107,10 @@ class Painter {
         }
 
         canvas.onmouseup = (e) => {
-            isPaint = false;
+            // isPaint = false;
             const x = e.clientX;
             const y = e.clientY;
+            isUsing = false;
         }
 
         window.onresize = () => {
