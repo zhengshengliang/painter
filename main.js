@@ -78,6 +78,24 @@ class Painter {
             blue.classList.add('active');
         }
 
+        thin.onclick = () => {
+            context.lineWidth = 5;
+        }
+
+        thick.onclick = () => {
+            context.lineWidth = 10;
+        }
+
+        clear.onclick = () => {
+            canvas.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        download.onclick = () => {
+            // context.clearRect(0, 0, canvas.width, canvas.height);
+
+        }
+
+
         // this.drawLine(0, 0, 100, 100);
     }
 
@@ -107,7 +125,7 @@ class Painter {
         context.beginPath();
         // context.strokeStyle = 'red';
         context.moveTo(x1, y1); // 起点
-        context.lineWidth = 5; // 线的宽度
+        // context.lineWidth = 5; // 线的宽度
         context.lineTo(x2, y2); // 终点
         context.stroke();
         context.closePath();
