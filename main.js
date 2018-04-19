@@ -14,6 +14,7 @@ class Painter {
     constructor() {
         canvas = document.getElementById('canvas');
         context = canvas.getContext('2d');
+        context.strokeStyle = 'red';
     }
 
     init() {
@@ -104,7 +105,7 @@ class Painter {
 
     drawLine(x1, y1, x2, y2) {
         context.beginPath();
-        // context.strokeStyle = 'black';
+        // context.strokeStyle = 'red';
         context.moveTo(x1, y1); // 起点
         context.lineWidth = 5; // 线的宽度
         context.lineTo(x2, y2); // 终点

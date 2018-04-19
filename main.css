@@ -11,6 +11,9 @@ ul, ol {
     list-style: none;
 }
 
+body {
+    overflow: hidden;
+}
 
 
 #canvas {
@@ -85,4 +88,11 @@ ul, ol {
 
 .colors > li.blue {
     background-color: blue;
+}
+
+.sizes {
+    position: fixed;
+    top: 45px;
+    right: 10px;
+    border: 3px solid black;
 }
